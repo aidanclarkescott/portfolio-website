@@ -6,11 +6,11 @@ const Layout = ({ children }) => {
     <body
       style={{
         margin: `0 auto`,
-        maxWidth: `var(--size-content)`,
+        // maxWidth: `var(--size-content)`,
         padding: `var(--size-gutter)`,
       }}
     >
-      <main>{children}</main>
+      {children}
     </body>
   )
 }
