@@ -1,128 +1,116 @@
 import * as React from "react"
-import { Link } from "gatsby"
-import { StaticImage } from "gatsby-plugin-image"
+import { useState } from "react"
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
-import * as styles from "../components/index.module.css"
+import Links from "../components/links"
+import WorkExperience from "../components/experience"
+import Projects from "../components/projects"
+import {
+  center,
+  subHeading,
+  emailCopyAlert,
+  errorEmailCopyAlert,
+  emailCopyAlertMobile,
+} from "./index.module.css"
+import { StaticImage } from "gatsby-plugin-image"
+import Alert from "@mui/material/Alert"
+import ContentPasteIcon from "@mui/icons-material/ContentPaste"
 
-const links = [
-  {
-    text: "Tutorial",
-    url: "https://www.gatsbyjs.com/docs/tutorial",
-    description:
-      "A great place to get started if you're new to web development. Designed to guide you through setting up your first Gatsby site.",
-  },
-  {
-    text: "Examples",
-    url: "https://github.com/gatsbyjs/gatsby/tree/master/examples",
-    description:
-      "A collection of websites ranging from very basic to complex/complete that illustrate how to accomplish specific tasks within your Gatsby sites.",
-  },
-  {
-    text: "Plugin Library",
-    url: "https://www.gatsbyjs.com/plugins",
-    description:
-      "Learn how to add functionality and customize your Gatsby site or app with thousands of plugins built by our amazing developer community.",
-  },
-  {
-    text: "Build and Host",
-    url: "https://www.gatsbyjs.com/cloud",
-    description:
-      "Now you’re ready to show the world! Give your Gatsby site superpowers: Build and host on Gatsby Cloud. Get started for free!",
-  },
-]
+const EMAIL = "clarkescotta@gmail.com"
 
-const samplePageLinks = [
-  {
-    text: "Page 2",
-    url: "page-2",
-    badge: false,
-    description:
-      "A simple example of linking to another page within a Gatsby site",
-  },
-  { text: "TypeScript", url: "using-typescript" },
-  { text: "Server Side Rendering", url: "using-ssr" },
-  { text: "Deferred Static Generation", url: "using-dsg" },
-]
+const IndexPage = () => {
+  const [expanded, setExpanded] = useState(false)
+  const [showEmailCopiedAlert, setShowEmailCopiedAlert] = useState(false)
+  const [showEmailCopyError, setShowEmailCopyError] = useState(false)
 
-const moreLinks = [
-  { text: "Join us on Discord", url: "https://gatsby.dev/discord" },
-  {
-    text: "Documentation",
-    url: "https://gatsbyjs.com/docs/",
-  },
-  {
-    text: "Starters",
-    url: "https://gatsbyjs.com/starters/",
-  },
-  {
-    text: "Showcase",
-    url: "https://gatsbyjs.com/showcase/",
-  },
-  {
-    text: "Contributing",
-    url: "https://www.gatsbyjs.com/contributing/",
-  },
-  { text: "Issues", url: "https://github.com/gatsbyjs/gatsby/issues" },
-]
+  const handleChange = panel => {
+    setExpanded(panel !== expanded ? panel : false)
+  }
 
-const utmParameters = `?utm_source=starter&utm_medium=start-page&utm_campaign=default-starter`
+  const handleEmailAlert = () => {
+    if (showEmailCopiedAlert || showEmailCopyError) return
 
-const IndexPage = () => (
-  <Layout>
-    <div className={styles.textCenter}>
-      <StaticImage
-        src="../images/example.png"
-        loading="eager"
-        width={64}
-        quality={95}
-        formats={["auto", "webp", "avif"]}
-        alt=""
-        style={{ marginBottom: `var(--space-3)` }}
-      />
-      <h1>
-        Welcome to <b>Gatsby!</b>
-      </h1>
-      <p className={styles.intro}>
-        <b>Example pages:</b>{" "}
-        {samplePageLinks.map((link, i) => (
-          <React.Fragment key={link.url}>
-            <Link to={link.url}>{link.text}</Link>
-            {i !== samplePageLinks.length - 1 && <> · </>}
-          </React.Fragment>
-        ))}
-        <br />
-        Edit <code>src/pages/index.js</code> to update this page.
-      </p>
-    </div>
-    <ul className={styles.list}>
-      {links.map(link => (
-        <li key={link.url} className={styles.listItem}>
-          <a
-            className={styles.listItemLink}
-            href={`${link.url}${utmParameters}`}
-          >
-            {link.text} ↗
-          </a>
-          <p className={styles.listItemDescription}>{link.description}</p>
-        </li>
-      ))}
-    </ul>
-    {moreLinks.map((link, i) => (
-      <React.Fragment key={link.url}>
-        <a href={`${link.url}${utmParameters}`}>{link.text}</a>
-        {i !== moreLinks.length - 1 && <> · </>}
-      </React.Fragment>
-    ))}
-  </Layout>
-)
+    copyToClipboard(EMAIL)
+  }
 
-/**
- * Head export to define metadata for the page
- *
- * See: https://www.gatsbyjs.com/docs/reference/built-in-components/gatsby-head/
- */
-export const Head = () => <Seo title="Home" />
+  const copyToClipboard = text => {
+    navigator.clipboard
+      .writeText(text)
+      .then(() => {
+        setShowEmailCopiedAlert(true)
+        setTimeout(() => setShowEmailCopiedAlert(false), 5000)
+      })
+      .catch(err => {
+        setShowEmailCopyError(true)
+        setTimeout(() => setShowEmailCopyError(false), 5000)
+      })
+  }
+
+  return (
+    <>
+      <Layout>
+        <header className={center}>
+          <StaticImage
+            src={"../images/jade-forest.jpg"}
+            alt="forest"
+            placeholder="blurred"
+            height={300}
+            style={{ borderRadius: "10px" }}
+          />
+          <h1 style={{ paddingTop: "1.5rem" }}>Hi, I'm Aidan.</h1>
+          <p style={{ textAlign: "center" }}>
+            A software developer passionate about front-end technologies.
+          </p>
+          {/* <p className={subHeading}>No, I don't like CSS. Why do you ask?</p> */}
+          <p className={subHeading}>UBC Computer Science graduate.</p>
+
+          <Links handleEmailAlert={handleEmailAlert} />
+        </header>
+
+        <main>
+          <div className={center}>
+            <WorkExperience expanded={expanded} handleChange={handleChange} />
+          </div>
+
+          <div className={center}>
+            <Projects expanded={expanded} handleChange={handleChange} />
+          </div>
+        </main>
+      </Layout>
+
+      {showEmailCopiedAlert && (
+        <Alert
+          icon={<ContentPasteIcon fontSize="inherit" />}
+          severity="success"
+          className={`${emailCopyAlert} ${emailCopyAlertMobile}`}
+        >
+          Email copied to clipboard.
+        </Alert>
+      )}
+
+      {showEmailCopyError && (
+        <Alert
+          severity="error"
+          className={`${errorEmailCopyAlert} ${emailCopyAlertMobile}`}
+        >
+          Unable to copy email to clipboard.
+        </Alert>
+      )}
+    </>
+  )
+}
+
+export const Head = () => <Seo title="Aidan Clarke Scott" />
 
 export default IndexPage
+
+// DONE - 1. Work on accordionActionsClasses, try moving arrow to left side and add icon
+// DONE - 1.5. Fix yaltysoft icon (bigger), and sort out extra top padding on bullet points
+// DONE - 2. Add additional information (projects)
+// DONE - 3. Host PDF and get email copy working
+// 4. Edit/add info to accordions (pictures to yaltysoft, detail to later, pictures to personal finance, odin, and maybe FSO)
+// DONE - 5. settle on picture
+// 6. Try to get domain name and ssl
+// DONE - 7. Add date ranges for work experience
+// DONE - 8. Maybe add tooltip for other links
