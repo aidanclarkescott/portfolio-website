@@ -29,6 +29,7 @@ const IndexPage = () => {
   }
 
   const handleEmailAlert = () => {
+    console.log(process.env.NODE_ENV)
     if (showEmailCopiedAlert || showEmailCopyError) return
 
     copyToClipboard(EMAIL)

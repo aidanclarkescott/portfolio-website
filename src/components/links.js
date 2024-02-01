@@ -7,6 +7,7 @@ import EmailIcon from "@mui/icons-material/Email"
 import BottomArrowTooltip from "./bottom-arrow-tooltip"
 import IconButton from "@mui/material/IconButton"
 import "./main-content.css"
+import { withPrefix } from "gatsby"
 
 const Links = ({ handleEmailAlert }) => {
   return (
@@ -16,14 +17,13 @@ const Links = ({ handleEmailAlert }) => {
         flexDirection: "row",
         justifyContent: "center",
         gap: "4rem",
-
         paddingTop: "1rem",
         paddingBottom: "1rem",
       }}
     >
       <BottomArrowTooltip title="Resume" offset={-11}>
         <Link
-          href="portfolio-website/resume.pdf"
+          href={withPrefix("/resume.pdf")}
           target="_blank"
           rel="noopener noreferrer"
         >
