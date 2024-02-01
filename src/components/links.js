@@ -22,7 +22,11 @@ const Links = ({ handleEmailAlert }) => {
       }}
     >
       <BottomArrowTooltip title="Resume" offset={-11}>
-        <Link href="/resume.pdf" target="_blank" rel="noopener noreferrer">
+        <Link
+          href="portfolio-website/resume.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <ContactPageIcon style={{ color: "black", fontSize: "1.8rem" }} />
         </Link>
       </BottomArrowTooltip>
