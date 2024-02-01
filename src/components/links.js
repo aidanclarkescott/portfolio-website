@@ -24,6 +24,7 @@ const Links = ({ handleEmailAlert }) => {
       <BottomArrowTooltip title="Resume" offset={-11}>
         <Link
           href={withPrefix("/resume.pdf")}
+          // href="/resume.pdf"
           target="_blank"
           rel="noopener noreferrer"
         >
