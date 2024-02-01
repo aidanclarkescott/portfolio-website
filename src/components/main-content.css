@@ -1,0 +1,32 @@
+.image-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 10px;
+  padding-top: 1rem;
+  padding-bottom: 0.5rem;
+}
+
+.image {
+  max-height: 150px;
+}
+
+.icon-button-invis-background:hover {
+  background-color: transparent;
+}
+
+.email-copy-icon-button {
+  padding: 0 !important;
+  align-items: start !important;
+}
+
+/* Media query for smaller screens */
+@media (max-width: 800px) {
+  .image-grid {
+    grid-template-columns: 1fr; /* Switch to a single column layout */
+    width: 80%;
+  }
+
+  .image {
+    max-height: unset;
+  }
+}
