@@ -29,6 +29,7 @@ const IndexPage = () => {
   }
 
   const handleEmailAlert = () => {
+    console.log(process.env.NODE_ENV)
     if (showEmailCopiedAlert || showEmailCopyError) return
 
     copyToClipboard(EMAIL)
@@ -48,36 +49,34 @@ const IndexPage = () => {
   }
 
   return (
-    <>
-      <Layout>
-        <header className={center}>
-          <StaticImage
-            src={"../images/jade-forest.jpg"}
-            alt="forest"
-            placeholder="blurred"
-            height={300}
-            style={{ borderRadius: "10px" }}
-          />
-          <h1 style={{ paddingTop: "1.5rem" }}>Hi, I'm Aidan.</h1>
-          <p style={{ textAlign: "center" }}>
-            A software developer passionate about front-end technologies.
-          </p>
-          {/* <p className={subHeading}>No, I don't like CSS. Why do you ask?</p> */}
-          <p className={subHeading}>UBC Computer Science graduate.</p>
+    <Layout>
+      <header className={center}>
+        <StaticImage
+          src={"../images/jade-forest.jpg"}
+          alt="forest"
+          placeholder="blurred"
+          height={300}
+          style={{ borderRadius: "10px" }}
+        />
+        <h1 style={{ paddingTop: "1.5rem" }}>Hi, I'm Aidan.</h1>
+        <p style={{ textAlign: "center" }}>
+          A software developer passionate about front-end technologies.
+        </p>
+        {/* <p className={subHeading}>No, I don't like CSS. Why do you ask?</p> */}
+        <p className={subHeading}>UBC Computer Science graduate.</p>
 
-          <Links handleEmailAlert={handleEmailAlert} />
-        </header>
+        <Links handleEmailAlert={handleEmailAlert} />
+      </header>
 
-        <main>
-          <div className={center}>
-            <WorkExperience expanded={expanded} handleChange={handleChange} />
-          </div>
+      <main style={{ maxWidth: "54rem", margin: "0 auto" }}>
+        <div className={center}>
+          <WorkExperience expanded={expanded} handleChange={handleChange} />
+        </div>
 
-          <div className={center}>
-            <Projects expanded={expanded} handleChange={handleChange} />
-          </div>
-        </main>
-      </Layout>
+        <div className={center}>
+          <Projects expanded={expanded} handleChange={handleChange} />
+        </div>
+      </main>
 
       {showEmailCopiedAlert && (
         <Alert
@@ -97,7 +96,7 @@ const IndexPage = () => {
           Unable to copy email to clipboard.
         </Alert>
       )}
-    </>
+    </Layout>
   )
 }
 
@@ -114,3 +113,5 @@ export default IndexPage
 // 6. Try to get domain name and ssl
 // DONE - 7. Add date ranges for work experience
 // DONE - 8. Maybe add tooltip for other links
+// 9. Figure out why resume pdf isn't working
+// 10. Fix outer body element
